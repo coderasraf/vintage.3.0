@@ -1,0 +1,65 @@
+{{ 'section-hero.css' | asset_url | stylesheet_tag }}
+
+<div class="hero-section-wrapper">
+
+    <div class="hero-header-container">
+        <h1>
+            <img src="{{'hero-image.svg' | asset_url }}" alt="">
+            <span>Vintage & T-shirt</span>
+        </h1>
+    </div>
+
+    <div class="hero-collections">
+
+        <div class="hero-collections__cart-container">
+            {% for block in section.blocks %}
+            <a class="hero-collection-card" href="{{ block.settings.collection.url | url_escape }}">
+                <div class="background-image-hero" style="background-image:url({{ block.settings.image_bg | img_url:'large' }})">
+                    <div class="hover-image">
+                        <img src="{{ block.settings.image_hover | img_url: 'medium'}}" alt="">
+                    </div>
+                    <h3>{{ block.settings.collection.title | downcase }}</h3>
+                </div>
+            </a>
+        {% endfor %}
+        </div>
+        
+    </div>
+</div>
+
+
+
+{% schema %}
+{
+  "name": "hero",
+  "blocks":[
+    {
+        "type": "collection",
+        "limit":3,
+        "name": "Collection",
+        "settings":[
+            {
+              "type": "collection",
+              "id":"collection",
+              "label":"Choose Collection"
+            },
+            {
+               "type": "image_picker",
+               "id":"image_bg",
+               "label":"Select Background Image"
+            },
+            {
+               "type": "image_picker",
+               "id":"image_hover",
+               "label":"Hover Image"
+            }
+        ]
+    }
+  ],
+  "presets":[
+    {
+        "name": "hero"
+    }
+  ]
+}
+{% endschema %}
