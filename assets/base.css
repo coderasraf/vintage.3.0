@@ -1,4 +1,14 @@
 /* Color custom properties */
+/* Custom font */
+@font-face {
+  font-family: 'Byrd Regular';
+  src: url('Byrd-Regular.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Opposit Bold';
+  src: url('Opposit-Bold.otf') format('opentype');
+}
 
 :root,
 .color-background-1 {
@@ -1873,6 +1883,7 @@ input[type='checkbox'] {
   background-color: rgb(var(--color-background));
 }
 
+
 .header-wrapper--border-bottom {
   border-bottom: 0.1rem solid rgba(var(--color-foreground), 0.08);
 }
@@ -1892,6 +1903,16 @@ input[type='checkbox'] {
     padding-bottom: 2rem;
   }
 
+  .header-wrapper:before{
+    position:absolute;
+    left: 0;
+    top: 50%;
+    width: 100%;
+    content: "";
+    background: #000;
+    height: 2px;
+  }
+
   .header--has-menu:not(.header--middle-left) {
     padding-bottom: 0;
   }
@@ -1905,11 +1926,11 @@ input[type='checkbox'] {
   }
 
   .header--middle-left {
-    grid-template-areas: 'heading navigation icons';
-    grid-template-columns: auto auto 1fr;
+    grid-template-areas: 'navigation heading icons';
+    grid-template-columns: 1fr 1fr auto;
     column-gap: 2rem;
   }
-
+ 
   .header--top-center {
     grid-template-areas:
       'left-icon heading icons'
@@ -1975,7 +1996,10 @@ input[type='checkbox'] {
 
   .header__heading,
   .header__heading-link {
-    justify-self: start;
+    justify-self: end;
+    position: relative;
+    z-index: 10;
+    background: #fff;
   }
 
   .header--top-center .header__heading-link,
@@ -1997,6 +2021,11 @@ input[type='checkbox'] {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+.header__icon--cart{
+  position: relative;
+  margin-left: 2rem;
+  background-color: #fff;
 }
 
 .header__icon {
@@ -2071,6 +2100,8 @@ menu-drawer + .header__search {
   .header:not(.header--top-center) * > .header__search,
   .header--top-center > .header__search {
     display: inline-flex;
+    z-index: 10;
+    background: #fff;
   }
 
   .header:not(.header--top-center) > .header__search,
@@ -2234,15 +2265,10 @@ details[open] > .header__icon--menu .icon-hamburger {
   transition: text-decoration var(--duration-short) ease;
 }
 
-.header__menu-item:hover span {
-  text-decoration: underline;
-  text-underline-offset: 0.3rem;
-}
 
 .header__active-menu-item {
   transition: text-decoration-thickness var(--duration-short) ease;
   color: rgb(var(--color-foreground));
-  text-decoration: underline;
   text-underline-offset: 0.3rem;
 }
 
@@ -2350,3 +2376,7 @@ details-disclosure > details {
   }
 }
 
+
+a:hover{
+  text-decoration: none !important;
+}
