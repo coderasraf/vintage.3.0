@@ -1,0 +1,61 @@
+.weekly-picks{
+    margin: 50px 0 120px;
+}
+.weekly-picks-header{
+    text-align: center;
+    font-size: 34px;
+    position: relative;
+    color: rgb(var(--color-foreground));
+}
+.weekly-picks__product-container{
+    display: flex;
+    flex-direction: column;
+}
+
+@media(min-width:768px){
+    .weekly-picks__product-container{
+        flex-direction: row;
+        width: 768px;
+    }
+}
+
+@media(min-width:1024px){
+    .weekly-picks__product-container{
+        flex-direction: row;
+        width: 900px;
+        margin: 0 auto;
+    }
+}
+.weekly-picks-item{
+    width: 300px;
+    height: 400px;
+    margin: 10px auto;
+    position: relative;
+}
+.weekly-picks-image-wrapper{
+    display: grid;
+    place-items: center;
+    width: 100%;
+}
+.weekly-picks-image-wrapper img{
+    width: 75%;
+}
+@media(min-width:768px){
+    .weekly-picks-image-wrapper img{
+        width: 80%;
+    }
+}
+.weekly-picks-item a{
+    text-decoration: none;
+}
+.product-title-week{
+    text-align: center;
+    color: rgb(var(--color-foreground));
+    font-size: 16px;
+    margin: 0;
+}
+.weekly-picks-price{
+    font-size: 21px;
+    color:rgb(var(--color-foreground));
+    text-align: center;
+}

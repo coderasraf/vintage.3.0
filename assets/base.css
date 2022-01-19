@@ -2380,3 +2380,21 @@ details-disclosure > details {
 a:hover{
   text-decoration: none !important;
 }
+
+.product-bubble{
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100px;
+  height: 110px;
+  background-repeat: no-repeat;
+  background-size: contain;
+  text-align: center;
+}
+.product-bubble > span{
+  position:absolute;
+  font-size: 15px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+}
