@@ -1,0 +1,76 @@
+
+<footer class="footer">
+
+    <div class="footer-moo-wrapper">
+        <ul class="footer-moo-links">
+            {% for link in section.settings.footer_menu_2.links %}
+                <li>
+                    <a href="{{ link.url }}">{{ link.title }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+        
+    </div>
+
+</footer>
+
+{% schema %}
+{
+    "name": "Moo Footer",
+    "settings":[
+        {
+            "type":"link_list",
+            "id":"footer_menu_2",
+            "label": "Footer Menu"
+        }
+    ],
+    "presets":[
+        {
+            "name": "Moo footer"
+        }
+    ]
+}
+{% endschema %}
+
+{% stylesheet %}
+
+.footer-moo-wrapper{
+    padding:40px 0;
+    position:relative;
+    z-index:1;
+}
+
+.footer-moo-wrapper::before {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    height: 54px;
+    width: 100%;
+    content: "";
+    background: #E8EFFA;
+    z-index: -1;
+}
+
+@media(min-width:768px){
+    .footer-moo-wrapper{
+        padding:60px 0;
+    }
+}
+.footer-moo-links {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.footer-moo-links li a {
+    display: block;
+    font-size: 35px;
+    text-decoration: none;
+    color: #000;
+    font-family:var(--font-heading-family);
+}
+
+.footer-moo-links li {
+    margin: 5px 30px;
+    list-style:none;
+}
+{% endstylesheet %}

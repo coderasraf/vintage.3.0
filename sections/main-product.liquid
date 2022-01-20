@@ -262,43 +262,6 @@
                 <button id="ProductPopup-{{ block.id }}" class="product-popup-modal__button link" type="button" aria-haspopup="dialog">{{ block.settings.text | default: block.settings.page.title }}</button>
               </modal-opener>
               <a href="{{ block.settings.page.url }}" class="product-popup-modal__button link no-js">{{ block.settings.text }}</a>
-          {%- when 'share' -%}
-            <share-button id="Share-{{ section.id }}" class="share-button" {{ block.shopify_attributes }}>
-              <button class="share-button__button hidden">
-                {% render 'icon-share' %}
-                {{ block.settings.share_label | escape }}
-              </button>
-              <details id="Details-{{ block.id }}-{{ section.id }}">
-                <summary class="share-button__button">
-                  {% render 'icon-share' %}
-                  {{ block.settings.share_label | escape }}
-                </summary>
-                <div id="Product-share-{{ section.id }}" class="share-button__fallback motion-reduce">
-                  <div class="field">
-                    <span id="ShareMessage-{{ section.id }}" class="share-button__message hidden" role="status">
-                    </span>
-                    <input type="text"
-                          class="field__input"
-                          id="url"
-                          value="{{ product.selected_variant.url | default: product.url | prepend: shop.url }}"
-                          placeholder="{{ 'general.share.share_url' | t }}"
-                          onclick="this.select();"
-                          readonly
-                    >
-                    <label class="field__label" for="url">{{ 'general.share.share_url' | t }}</label>
-                  </div>
-                  <button class="share-button__close hidden no-js-hidden">
-                    {% render 'icon-close' %}
-                    <span class="visually-hidden">{{ 'general.share.close' | t }}</span>
-                  </button>
-                  <button class="share-button__copy no-js-hidden">
-                    {% render 'icon-clipboard' %}
-                    <span class="visually-hidden">{{ 'general.share.copy_to_clipboard' | t }}</span>
-                  </button>
-                </div>
-              </details>
-            </share-button>
-            <script src="{{ 'share.js' | asset_url }}" defer="defer"></script>
           {%- when 'variant_picker' -%}
             {%- unless product.has_only_default_variant -%}
               {%- if block.settings.picker_type == 'button' -%}
@@ -462,6 +425,71 @@
                 <span class="visually-hidden">{{ product.metafields.reviews.rating_count }} {{ "accessibility.total_reviews" | t }}</span>
               </p>
             {%- endif -%}
+            {% when 'social' %}
+              <div class="social-sharing">
+                 <ul>
+                   <li>
+                    <a target="_blank" href="//www.facebook.com/sharer.php?u={{ shop.url | append: share_permalink }}">
+                      {% include 'icon-facebook' %}
+                      <span>facebook</span>
+                    </a>
+                   </li>
+                   <li>
+                    <a target="_blank" href="//twitter.com/share?text={{ share_title | url_param_escape }}&amp;url={{ shop.url | append: share_permalink }}">
+                      {% include 'icon-twitter' %}
+                      <span>Tweet</span>
+                    </a>
+                   </li>
+                   <li>
+                    <a target="_blank" href="//pinterest.com/pin/create/button/?url={{ shop.url | append: share_permalink }}&amp;media={{ share_image | img_url: '1024x1024' }}&amp;description={{ share_title | url_param_escape }}">
+                      {% include 'icon-pinterest' %}
+                      <span>Pin it</span>
+                    </a>
+                   </li>
+                   <li>
+                     <a href="#">
+                      {%- when 'share' -%}
+                      <share-button id="Share-{{ section.id }}" class="share-button" {{ block.shopify_attributes }}>
+                        <button class="share-button__button hidden">
+                          {% render 'icon-share' %}
+                          {{ block.settings.share_label | escape }}
+                        </button>
+                        <details id="Details-{{ block.id }}-{{ section.id }}">
+                          <summary class="share-button__button">
+                            {% render 'icon-share' %}
+                            {{ block.settings.share_label | escape }}
+                          </summary>
+                          <div id="Product-share-{{ section.id }}" class="share-button__fallback motion-reduce">
+                            <div class="field">
+                              <span id="ShareMessage-{{ section.id }}" class="share-button__message hidden" role="status">
+                              </span>
+                              <input type="text"
+                                    class="field__input"
+                                    id="url"
+                                    value="{{ product.selected_variant.url | default: product.url | prepend: shop.url }}"
+                                    placeholder="{{ 'general.share.share_url' | t }}"
+                                    onclick="this.select();"
+                                    readonly
+                              >
+                              <label class="field__label" for="url">{{ 'general.share.share_url' | t }}</label>
+                            </div>
+                            <button class="share-button__close hidden no-js-hidden">
+                              {% render 'icon-close' %}
+                              <span class="visually-hidden">{{ 'general.share.close' | t }}</span>
+                            </button>
+                            <button class="share-button__copy no-js-hidden">
+                              {% render 'icon-clipboard' %}
+                              <span class="visually-hidden">{{ 'general.share.copy_to_clipboard' | t }}</span>
+                            </button>
+                          </div>
+                        </details>
+                      </share-button>
+                      <script src="{{ 'share.js' | asset_url }}" defer="defer"></script>
+                     </a>
+                   </li>
+                 </ul>
+
+              </div>
           {%- endcase -%}
         {%- endfor -%}
       </div>
@@ -913,6 +941,17 @@
           "content": "t:sections.main-product.blocks.rating.settings.paragraph.content"
         }
       ]
+    },
+    {
+      "type": "social",
+      "name": "Social Share",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "Social Share"
+        }
+      ]
     }
   ],
   "settings": [
@@ -999,3 +1038,47 @@
   ]
 }
 {% endschema %}
+
+{% stylesheet %}
+
+    .social-sharing ul {
+      display: flex;
+      list-style: none;
+      flex-wrap:wrap;
+    }
+
+    .social-sharing ul li a {
+      text-decoration: none;
+      color: #000;
+      border: 1.3px solid #000;
+      display: flex;
+      align-items: center;
+      padding: 1px 4px;
+      border-radius: 2px;
+  }
+
+    .social-sharing ul li{
+      margin:0 5px;
+    }
+    .social-sharing ul li a svg {
+      width: 13px;
+      margin-right:5px;
+      display:block;
+    }
+    .social-sharing ul li a span{
+      font-family:var(--font-body-family);
+      font-size:13px;
+    }
+    .icon-facebook{
+      color:#3b5998;
+    }
+    .icon-twitter{
+      color: #00acee;
+    }
+    .icon-pinterest{
+      color:#E60023;
+    }
+    .social-sharing {
+      margin-left: -40px !important;
+  }
+{% endstylesheet %}
