@@ -1,0 +1,49 @@
+{{ 'collection-grid.css' | asset_url | stylesheet_tag }}
+
+<div class="collection-grid-wrapper">
+    <h2 class="collection_grid_title">{{ section.settings.header }}</h2>
+    <div class="collection-grid_grid-container">
+        {% for block in section.blocks %}
+        <a class="collection-grid__grid-item" href="{{ block.settings.collection.url }}">
+            <div class="collection-grid__img-ctn">
+                <img src="{{ block.settings.collection.image | img_url:"large" }}" alt="{{ block.settings.collection.image.alt }}">
+            </div>
+           <h3 class="grid-collection-title">{{ block.settings.collection.title }}</h3>
+        </a>
+        
+        {% endfor %}
+    </div>
+</div>
+
+
+{% schema %}
+{
+   "name": "Collection Grid", 
+   "settings":[
+    {
+        "type":"text",
+        "id":"header",
+        "label":"Header"
+    }
+   ],
+   "blocks":[
+    {
+        "name": "Collections",
+        "limit": 4,
+        "type": "collection",
+        "settings":[
+            {
+                "type": "collection",
+                "id"  : "collection",
+                "label": "Collection"
+            }
+        ]
+    }
+   ],
+   "presets":[
+    {
+        "name":"Collection Grid"
+    }
+   ]
+}
+{% endschema %}

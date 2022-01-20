@@ -121,12 +121,15 @@
         </div>
       {%- endif -%}
 
-      <div class="card__badge">
-        {%- if product_card_product.available == false -%}
-          <span class="badge badge--bottom-left color-{{ settings.sold_out_badge_color_scheme }}">{{ 'products.product.sold_out' | t }}</span>
-        {%- elsif product_card_product.compare_at_price > product_card_product.price and product_card_product.available -%}
-          <span class="badge badge--bottom-left color-{{ settings.sale_badge_color_scheme }}">{{ 'products.product.on_sale' | t }}</span>
-        {%- endif -%}
+
+        <div class="product-bubble bubble--{% if product_card_product.tags contains 'New' %}new {% elsif product_card_product.tags contains 'Fave' %}fave {% elseif product_card_product.compare_at_price != blank %}sale {% endif %}">
+          <span>
+              {% if product_card_product.tags contains 'New' %}New 
+              {% elsif product_card_product.tags contains 'Fave' %}fave 
+              {% elseif product_card_product.compare_at_price != blank %}
+              sale 
+              {% endif %}
+          </span>
       </div>
     </div>
   </div>
